@@ -14,6 +14,7 @@ indent() {
 }
 
 echo "-----> Building Racket Runtime Environment"
+mkdir -p $CACHE_DIR
 touch $CACHE_DIR/version
 INSTALLED_VERSION=2
 if [ ! $INSTALLED_VERSION -eq $VERSION ]; then
