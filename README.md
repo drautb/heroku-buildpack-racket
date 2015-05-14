@@ -10,9 +10,9 @@ Usage
 Example usage:
 
     $ ls
-    Procfile web.mkt heroku-setup.mkt
+    Procfile server.rkt
 
-    $ heroku create --stack cedar --buildpack http://github.com/onixie/heroku-buildpack-racket.git
+    $ heroku create --stack cedar --buildpack http://github.com/drautb/heroku-buildpack-racket.git
 
     $ git push heroku master
     ...
@@ -22,9 +22,4 @@ Example usage:
     -----> Building Racket Runtime Environment
     ...
 
-The buildpack will detect that your app has a `heroku-setup.mkz` in the root.
-
-Hacking
--------
-
-To use this buildpack, fork it on Github.  Push up changes to your fork, then create a test app with `--buildpack <your-github-url>` and push to it.
+The buildpack will detect that your app has a `server.rkt` in the root.
