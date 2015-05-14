@@ -1,53 +1,34 @@
 #! /bin/sh
+set -e
 
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-RACKET_REPO=https://github.com/plt/racket.git
-RACKET_DIR=
-
-MAKEOPTS=-j3
-
-make_tempdir()
-{
-  dir=$(mktemp -t -u node-$1-XXXXXXX)
-  rm -rf $dir
-  mkdir -p $dir
-  echo $dir
-}
-
-get_racket() {
-  dir=$1
-  cd $dir
-  git clone $RACKET_REPO 1>&2
-  cd racket
-  echo `pwd`
-}
-
-build_racket() {
-  dir=$1
-  cd $dir/src
-  rm -rf build
-  mkdir build
-  cd build
-  ../configure --prefix=$BUILD_DIR 1>&2
-  make $MAKEOPTS 1>&2 && make $MAKEOPTS install 1>&2 && echo $BUILD_DIR
-}
+RACKET_URL="http://mirror.racket-lang.org/installers/6.1.1/racket-6.1.1-src.tgz"
+VERSION=3
+RACKET_VERSION=6.1.1
+RACKET_DIR=$CACHE_DIR/racket
 
 indent() {
   sed -u 's/^/       /'
 }
 
 echo "-----> Building Racket Runtime Environment"
-
-RACKET_DIR=$(build_racket $(get_racket $(make_tempdir racket)))
-
-if [ ! -d $RACKET_DIR ] then
-  echo "Fail" | indent
-  exit 1
+touch $CACHE_DIR/version
+INSTALLED_VERSION=2
+if [ ! $INSTALLED_VERSION -eq $VERSION ]; then
+    rm -rvf $CACHE_DIR
+    mkdir $CACHE_DIR
+    curl -L $RACKET_URL | tar xzv
+    mkdir $RACKET_DIR
+    cd racket-$RACKET_VERSION/src
+    ./configure --prefix=$RACKET_DIR
+    make
+    make install
+    echo $VERSION > $CACHE_DIR/version
 fi
 
 echo "-----> Creating racketapp From server.rkt"
-cd $RACKET_DIR
-cd bin
-raco exe -o $BUILD_DIR/racketapp $BUILD_DIR/server.rkt
+cd $BUILD_DIR
+$RACKET_DIR/bin/raco exe -o racketapp server.rkt
+# $RACKET_DIR/bin/raco distribute run heroku-setup
