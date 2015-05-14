@@ -32,4 +32,4 @@ fi
 echo "-----> Creating racketapp From server.rkt"
 cd "$BUILD_DIR"
 "$RACKET_DIR/bin/raco" exe -o racketapp server.rkt
-# $RACKET_DIR/bin/raco distribute run heroku-setup
+"$RACKET_DIR/bin/raco" distribute run racketapp
