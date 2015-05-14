@@ -16,7 +16,7 @@ indent() {
 echo "-----> Installing minimal racket + sha, web-server packages"
 mkdir -p "$CACHE_DIR"
 touch "$CACHE_DIR/version"
-INSTALLED_VERSION=2
+INSTALLED_VERSION=3
 if [ ! "$INSTALLED_VERSION" -eq "$VERSION" ]; then
     rm -rvf "$CACHE_DIR"
     mkdir "$CACHE_DIR"
