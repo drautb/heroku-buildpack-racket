@@ -34,3 +34,6 @@ set -x
 cd "$BUILD_DIR"
 "$RACKET_DIR/bin/raco" exe -o racketapp server.rkt
 "$RACKET_DIR/bin/raco" distribute run racketapp
+set +x
+echo "Contents of $BUILD_DIR:" | indent
+ls
