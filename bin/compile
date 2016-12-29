@@ -3,8 +3,9 @@ set -e
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+# ENV_DIR=$3
 
-RACKET_URL="http://mirror.racket-lang.org/installers/6.1.1/racket-minimal-6.1.1-x86_64-linux-ubuntu-precise.sh"
+RACKET_URL="https://mirror.racket-lang.org/installers/6.7/racket-minimal-6.7-x86_64-linux.sh"
 RACKET_INSTALLER="racket-minimal.sh"
 VERSION=3
 RACKET_DIR=$CACHE_DIR/racket
