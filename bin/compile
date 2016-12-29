@@ -22,12 +22,18 @@ if [ ! "$INSTALLED_VERSION" -eq "$VERSION" ]; then
     rm -rvf "$CACHE_DIR"
     mkdir "$CACHE_DIR"
 
+    echo "-----> Downloading racket installer from $RACKET_URL"
     curl -s "$RACKET_URL" -o "$RACKET_INSTALLER"
+
+    echo "-----> Download complete. Executing installer"
     chmod a+x "$RACKET_INSTALLER"
     ./racket-minimal.sh --in-place --dest "$RACKET_DIR"
+
+    echo "-----> Main install complete, installing sha and web-server packages"
     "$RACKET_DIR/bin/raco" pkg install --deps search-auto sha web-server
 
     echo $VERSION > "$CACHE_DIR/version"
+    echo "-----> Installation complete."
 fi
 
 echo "-----> Creating racketapp From server.rkt"
