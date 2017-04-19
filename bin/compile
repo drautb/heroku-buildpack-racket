@@ -29,8 +29,8 @@ if [ ! "$INSTALLED_VERSION" -eq "$VERSION" ]; then
     chmod a+x "$RACKET_INSTALLER"
     ./racket-minimal.sh --in-place --dest "$RACKET_DIR"
 
-    echo "-----> Main install complete, installing sha and web-server packages"
-    "$RACKET_DIR/bin/raco" pkg install --deps search-auto sha web-server
+    echo "-----> Main install complete, installing sha, web-server, and yaml packages"
+    "$RACKET_DIR/bin/raco" pkg install --deps search-auto sha web-server yaml
 
     echo $VERSION > "$CACHE_DIR/version"
     echo "-----> Installation complete."
